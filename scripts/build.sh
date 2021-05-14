@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-printf "\n\n######## ai-agent-server build ########\n"
 
-IMAGE_REPOSITORY=${IMAGE_REPOSITORY:-quay.io/redhatdemo/2021-ai-agent-server:latest}
+IMAGE_TAG=${IMAGE_TAG:-latest}
+IMAGE_REPOSITORY=${IMAGE_REPOSITORY:-quay.io/evanshortiss/shipwars-bot-server}
 
 rm -rf node_modules/
 rm -rf build/
 
-s2i build -c . registry.access.redhat.com/ubi8/nodejs-14 ${IMAGE_REPOSITORY}
+s2i build -c . -e HUSKY_SKIP_HOOKS=1 registry.access.redhat.com/ubi8/nodejs-14 ${IMAGE_REPOSITORY}:${IMAGE_TAG}
