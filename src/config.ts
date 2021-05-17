@@ -16,7 +16,7 @@ const config = {
     .default('ws://shipwars-game-server.shipwars.svc.cluster.local:8080/game')
     .asUrlString(),
 
-  AI_SERVER_URL: get('AI_SERVER_URL').required().asUrlString(),
+  AI_SERVER_URL: get('AI_SERVER_URL').default('http://shipwars-move-server.shipwars.svc.cluster.local:8080').required().asUrlString(),
 
   MIN_ATTACK_DELAY: get('MIN_ATTACK_DELAY').default(3250).asIntPositive(),
 
