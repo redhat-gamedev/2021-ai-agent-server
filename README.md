@@ -1,6 +1,6 @@
-# AI Agent
+# Shipwars Bots Server
 
-Server that can be used to spin up "Agents" or "bots" that act as players, but
+Server that can be used to spin up "agents" or "bots" that act as players, but
 use an AI service to choose their moves. If no AI service URL is configured
 Agents will use a simple top-left to bottom-right attack strategy.
 
@@ -8,8 +8,6 @@ Agents will use a simple top-left to bottom-right attack strategy.
 
 * Node.js v14
 * npm v6
-* Docker
-* Running [AI Service](https://github.com/sub-mod/bataai.git)
 
 ## Local Development
 
@@ -27,12 +25,12 @@ Environment variables can be used to configure runtime behaviour:
 
 * NODE_ENV - Set to `dev` or `prod`
 * LOG_LEVEL - Set to `trace`, `debug`, `info` etc. Defaults to `info` if `NODE_ENV=prod`, or `trace` if `NODE_ENV=dev`.
-* HTTP_PORT - Defaults to 3003. Local development overrides this to
+* HTTP_PORT - Defaults to 8080. Local development overrides this.
 * GAME_GRID_SIZE - Defaults to 5. This must match the corresponding game server value.
-* GAME_SERVER_URL - A WebSocket URL to the game server. Defaults to `ws://game-server.frontend.svc.cluster.local:8080/game`
+* GAME_SERVER_URL - A WebSocket URL to the game server. Defaults to `ws://shipwars-game-server.shipwars.svc.cluster.local:8080/game`
 * AI_SERVER_URL - A HTTP URL to the move prediction service.
-* MIN_ATTACK_DELAY - Forces the Agent to "think" (wait) before sending an attack. Defaults to `3500` milliseconds.
-* AGENT_SEND_DELAY - A minimum delay placed on all outgoing WebSocket messages. Defaults to `500` milliseconds.
+* MIN_ATTACK_DELAY - Forces the Agent to "think" (wait) before sending an attack. Defaults to `3250` milliseconds.
+* AGENT_SEND_DELAY - A minimum delay placed on all outgoing WebSocket messages. Defaults to `1000` milliseconds.
 
 ## API Usage
 
