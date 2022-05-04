@@ -5,5 +5,12 @@ IMAGE_REPOSITORY=${IMAGE_REPOSITORY:-quay.io/evanshortiss/shipwars-bot-server}
 
 rm -rf node_modules/
 rm -rf build/
+rm -rf /tmp/upload
 
-s2i build -c . -e HUSKY_SKIP_HOOKS=1 registry.access.redhat.com/ubi8/nodejs-14 ${IMAGE_REPOSITORY}:${IMAGE_TAG}
+if ! command -v podman &> /dev/null
+then
+    s2i build -c . -e HUSKY_SKIP_HOOKS=1 registry.access.redhat.com/ubi8/nodejs-14 ${IMAGE_REPOSITORY}:${IMAGE_TAG}
+else
+    s2i build -e HUSKY_SKIP_HOOKS=1 -c . --as-dockerfile /tmp/Dockerfile.generated registry.access.redhat.com/ubi8/nodejs-14 
+    podman build /tmp -f /tmp/Dockerfile.generated -t ${IMAGE_REPOSITORY}:${IMAGE_TAG}
+fi
