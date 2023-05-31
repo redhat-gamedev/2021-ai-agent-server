@@ -42,6 +42,7 @@
     "@evanshortiss/tstate-machine": "^2.0.1",
     "env-var": "~7.0.0",
     "fastify": "~3.11.0",
+    "fastify-graceful-shutdown": "^3.4.0",
     "fastify-plugin": "~3.0.0",
     "got": "^11.8.1",
     "humanize-duration": "~3.25.1",

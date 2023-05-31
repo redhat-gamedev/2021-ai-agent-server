@@ -1,9 +1,12 @@
 import fastify from 'fastify';
 import { HTTP_PORT, NODE_ENV } from './config';
 import log from './log';
+import 'fastify-graceful-shutdown';
 
 const { version } = require('../package.json');
 const app = fastify({ logger: NODE_ENV !== 'prod' });
+
+app.register(require('fastify-graceful-shutdown'));
 
 // Provides a health endpoint to check
 app.register(require('./plugins/health'), {
@@ -15,6 +18,11 @@ app.register(require('./plugins/health'), {
 // Allows CRUD on AI Agent instances
 app.register(require('./plugins/agents'), {
   options: {}
+});
+
+// Handle process signals
+app.after(() => {
+  app.gracefulShutdown((signal, next) => next());
 });
 
 export default async function startServer() {
